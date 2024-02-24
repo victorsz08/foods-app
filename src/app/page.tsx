@@ -1,95 +1,85 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+/* eslint-disable @next/next/no-img-element */
+'use client';
+
+import styled from "styled-components";
+import Link from "next/link";
+import { CardInfo } from "./components/CardsInfo";
+
+import { IoHeartCircleSharp } from "react-icons/io5";
+import { AiFillControl } from "react-icons/ai";
+import { MdDashboardCustomize } from "react-icons/md";
+
+
+const MainStyled = styled.main`
+  padding-top: 80px;
+  text-align: center;
+  height: 150vh;
+
+  img {
+    height: 70vh;
+    width: 100vw;
+    object-fit: cover;
+    filter: brightness(60%);
+  }
+
+  .info-container {
+    color: #edf2f4;
+    position: absolute;
+    transform: translateX(33vw) translateY(-40vh);
+  }
+
+  h1 {
+    font-size: 4rem;
+    color: #edf2f4;
+  }
+
+  .cards-information-container {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 5rem 0;
+  }
+
+  a {
+    text-align: center;
+    color: #edf2f4;
+    padding: .6rem 1.3rem;
+    border-radius:1.4rem;
+    text-decoration: none;
+    background-color: #ef233c;
+  }
+`
+
+
 
 export default function Home() {
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
+    <MainStyled>
+      <img src="https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Nutri Finder Image"/>
+      <div className="info-container">
+        <h1>NutriFinder</h1>
+        <p>Conheça o poder dos alimentos. Controle suas calorias, transforme sua saúde.</p>
       </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+      <div className="cards-information-container">
+        <CardInfo key="1" title="Consciência nutricional" description="O aplicativo fornece informações detalhadas sobre a composição nutricional dos alimentos,
+        ajudando os usuários a fazerem escolhas mais conscientes e saudáveis em sua dieta diária."
+        >
+          <IoHeartCircleSharp/>
+        </CardInfo>
+        <CardInfo key="2" title="Controle de calorias" description="Com a capacidade de buscar e visualizar facilmente o conteúdo calórico dos alimentos, os usuários podem monitorar 
+        sua ingestão calórica e trabalhar em direção a seus objetivos de saúde e bem-estar, seja para perda de peso, manutenção ou ganho."
+        >
+          <AiFillControl/>
+        </CardInfo>
+        <CardInfo key="3" title="Personalização e planejamento" description="O aplicativo permite aos usuários personalizar suas preferências alimentares e metas individuais, fornecendo recomendações e sugestões 
+        adaptadas às suas necessidades específicas, facilitando o planejamento de refeições e lanches de acordo com seus objetivos nutricionais."
+        >
+          <MdDashboardCustomize/>
+        </CardInfo>
       </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+      <Link href="/search">PESQUISAR ALIMENTOS</Link>
+    </MainStyled>
   );
 }
+
+
+
