@@ -1,12 +1,13 @@
 'use client';
 
 import { Input } from "@/app/components/Input";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import styled from "styled-components";
-import { IoSearchSharp } from "react-icons/io5";
+import { IoSearchSharp, IoArrowUndoSharp, IoArrowRedo } from "react-icons/io5";
 import { CardFood } from "@/app/components/CardFood";
-import { IoArrowRedo } from "react-icons/io5";
-import { IoArrowUndoSharp } from "react-icons/io5";
+import { resolve } from "path";
+
+
 
 
 
@@ -79,6 +80,7 @@ const StyledSearch = styled.section`
         font-size: 1rem;
         padding: .4rem;
         font-weight: 600;
+        font-style: normal;
     }
 
     .navigation-page p + p {
@@ -91,7 +93,7 @@ const StyledSearch = styled.section`
 `
 
 
-export default function Search() {
+export default async function Search() {
     const [search, setSearch] = useState("Arroz");
     const [page, setPage] = useState(1);
     const totalPages = 10;
@@ -111,6 +113,9 @@ export default function Search() {
             return setPage(page + 1);
         }
     }
+
+    await new Promise(resolve => setTimeout(resolve, 4000))
+
 
     return (
         <StyledSearch>
