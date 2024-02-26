@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 const LoaderStyled = styled.div`
 margin: 2rem 0;
+
 .loader, .loader:before, .loader:after {
     border-radius: 50%;
     width: 2.5em;
