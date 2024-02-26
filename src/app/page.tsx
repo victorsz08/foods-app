@@ -13,7 +13,8 @@ import { MdDashboardCustomize } from "react-icons/md";
 const MainStyled = styled.main`
   padding-top: 80px;
   text-align: center;
-  height: 150vh;
+  height: 100%;
+  padding: 90px 0 ;
 
   img {
     height: 70vh;
@@ -46,6 +47,43 @@ const MainStyled = styled.main`
     border-radius:1.4rem;
     text-decoration: none;
     background-color: #ef233c;
+  }
+
+  @media (max-width: 368px) {
+    .info-container {
+      color: #edf2f4;
+      transform:  translateY(-40vh);
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      color: #edf2f4;
+    }
+
+    p {
+      font-size: .8rem;
+      padding: 0 .8rem;
+    }
+
+    .cards-information-container {
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-beetween;
+    }
+
+  }
+
+  @media (max-width: 811px) {
+    .info-container {
+      color: #edf2f4;
+      transform:  translateY(-40vh) translateX(10v);
+    }
+
+    .cards-information-container {
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-beetween;
+    }
   }
 `
 

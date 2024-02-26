@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 
 const AboutStyled = styled.section`
-    height: 100vh;
+    height: 90vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -26,6 +26,15 @@ const AboutStyled = styled.section`
         color: #2b2d42;
         font-weight: 300;
         font-style: italic;
+    }
+
+    @media (max-width: 376px) {
+        padding: 0 8vw;
+        h1, strong {
+            font-size: 1.7rem;
+            margin-bottom: 4rem;
+            font-weight: 800;
+        }
     }
 `
 

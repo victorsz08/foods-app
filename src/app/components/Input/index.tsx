@@ -14,6 +14,18 @@ const InputStyled = styled.input`
     border-radius: 4rem;
     border: none;
     background-color: #d3d3d3;
+
+    @media(max-width: 580px) {
+        width: 25rem;
+        padding: 1rem;
+    }
+
+    @media(max-width: 376px) {
+        width: 20rem;
+        padding: 1rem;
+    }
+
+    
 `
 
 export function Input({ placeholder, value, type, onchange } : IInput) {

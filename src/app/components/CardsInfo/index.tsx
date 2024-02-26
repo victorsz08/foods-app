@@ -19,6 +19,7 @@ const StyledCard = styled.div`
     height: 23rem;
     padding: 1.5rem;
     border-radius: 1.2rem;
+    margin: .8rem 0;
 
     svg {
         height: 4rem;

@@ -1,13 +1,20 @@
 'use client';
 
 import { Input } from "@/app/components/Input";
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import styled from "styled-components";
-import { IoSearchSharp, IoArrowUndoSharp, IoArrowRedo } from "react-icons/io5";
+import { IoSearchSharp } from "react-icons/io5";
 import { CardFood } from "@/app/components/CardFood";
-import { resolve } from "path";
+import api from "@/app/services/api";
+import Loader from "@/app/components/Loader";
 
 
+type IFood = {
+    id?: number;
+    description: string;
+    category: string;
+    energy_kcal: string;
+}
 
 
 
@@ -25,6 +32,13 @@ const StyledSearch = styled.section`
         color: #8d99ae;
     }
 
+    #alert {
+        font-size: .8rem;
+        color: #2b2d42;
+        margin-bottom: 2rem;
+        padding: 0 1rem;
+    }
+
     .search-container {
         display: flex;
         flex-direction: column;
@@ -37,14 +51,14 @@ const StyledSearch = styled.section`
         margin-bottom: 2rem;
     }
 
-    .search-container .input-container {
+    .search-container form {
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: flex-end;
     }
 
-    .search-container .input-container button {
+    .search-container form button {
         width: 3rem;
         height: 3rem;
         position: absolute;
@@ -54,94 +68,79 @@ const StyledSearch = styled.section`
         cursor: pointer;
     }
 
-    .search-container .input-container button svg {
+    .search-container form button svg {
         width: 2rem;
         height: 2rem;
         color: #ef233c;
     }
 
-    .navigation-page {
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        margin-top: 2rem;
+    .response-search h3 {
+        color: #2b2d42;
+        margin: 1rem 0;
     }
 
-    .navigation-page button {
-        background-color: transparent;
-        border: none;
-        color: #ef233c;
-        font-size: 1.6rem;
-        cursor: pointer;
-    }
 
-    .navigation-page p {
-        margin: 0 .3rem;
-        font-size: 1rem;
-        padding: .4rem;
-        font-weight: 600;
-        font-style: normal;
-    }
-
-    .navigation-page p + p {
-        font-size: .9rem;
-    }
-
-    .navigation-page p + p + p{
-        font-size: 1rem;
+    @media (max-width: 811px) {
+        .search-container, h1 {
+            font-size: 1.4rem;
+            color: #ef233c;
+            margin-bottom: 2rem;
+        }
     }
 `
 
 
-export default async function Search() {
-    const [search, setSearch] = useState("Arroz");
-    const [page, setPage] = useState(1);
-    const totalPages = 10;
+export default function Search() {
+    const [search, setSearch] = useState("");
+    const [foods, setFoods] = useState<IFood[]>([]);
+    const [notFound, setNotFound] = useState("");
+    const [loading, setLoading] = useState(false);
 
-    function navigationUndo(){
-        if(page <= 1){
-            return setPage(1)
-        }else {
-            return setPage(page -1);
-        }
-    }
 
-    function navigationNext() {
-        if(page >= totalPages){
-            return setPage(totalPages);
-        }else {
-            return setPage(page + 1);
-        }
-    }
+    useEffect(() => {
+        setNotFound("");
+    },[search])
 
-    await new Promise(resolve => setTimeout(resolve, 4000))
 
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>){
+        setFoods([]);
+        setLoading(true);
+        e.preventDefault();
+
+
+        try {
+            const response = await api.get(`foods?pePage=100&search=${search}`);
+            if(response.data.length === 0) {
+                setNotFound(`Nenhum resultado para: ${search}`);
+                setLoading(false);
+            }else {
+                setLoading(false)
+                setFoods(response.data);
+            }
+        } catch (error) {
+            console.log(error);
+            setLoading(false)
+        };
+    };
+
+    
 
     return (
         <StyledSearch>
             <div className="search-container">
                 <h1>Pesquise um alimento</h1>
-                <div className="input-container">    
+            <h3 id="alert">Todos os Valores Caloricos dos alimentos são baseados em 100g desse mesmo alimento. Ex: Arroz - Calorias: 100kcal(100g de Arroz)</h3>
+                <form onSubmit={handleSubmit}>
                     <Input type="text" placeholder="Ex: Ovos Cozidos, Frango Assado, Castanhas..." value={search} onchange={setSearch}/>
-                    <button><IoSearchSharp/></button>
+                    <button type="submit"><IoSearchSharp/></button>
+                </form>    
                 </div>
-            </div>
-            {search && <p>Resultados da busca: {search}</p>}
             <div className="response-search">
-                <CardFood description="Arroz, integral, cozido" category="Cereais e derivados" energy_kcal="123.5348925"/>
-                <CardFood description="Arroz, integral, cozido" category="Cereais e derivados" energy_kcal="123.5348925"/>
-                <CardFood description="Arroz, integral, cozido" category="Cereais e derivados" energy_kcal="123.5348925"/>
-                <CardFood description="Arroz, integral, cozido" category="Cereais e derivados" energy_kcal="123.5348925"/>
-                <CardFood description="Arroz, integral, cozido" category="Cereais e derivados" energy_kcal="123.5348925"/>
-                <CardFood description="Arroz, integral, cozido" category="Cereais e derivados" energy_kcal="123.5348925"/>
-                <CardFood description="Arroz, integral, cozido" category="Cereais e derivados" energy_kcal="123.5348925"/>
-            </div>
-            <div className="navigation-page">
-                <button onClick={navigationUndo}><IoArrowUndoSharp/></button>
-                <p>{page}</p>
-                <p>de</p>
-                <p>{totalPages}</p>
-                <button onClick={navigationNext}><IoArrowRedo/></button>
+                {loading && <Loader/>}
+                {notFound && <h3>{notFound}</h3>}
+                {foods && foods.map(food => (
+                    <CardFood key={food.id} description={food.description} category={food.category} energy_kcal={food.energy_kcal}/>
+                ))}
             </div>
         </StyledSearch>
     )
