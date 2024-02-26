@@ -49,7 +49,24 @@ const MainStyled = styled.main`
     background-color: #ef233c;
   }
 
-  @media (max-width: 368px) {
+  @media (max-width: 428px) {
+    .info-container {
+      color: #edf2f4;
+      transform:  translateY(-40vh);
+    }   
+
+    h1 {
+      font-size: 2.2rem;
+      color: #edf2f4;
+    }
+
+    p {
+      font-size: .8rem;
+      padding: 0 .8rem;
+    }
+  }
+
+  @media (max-width: 376px) {
     .info-container {
       color: #edf2f4;
       transform:  translateY(-40vh);

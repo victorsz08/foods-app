@@ -82,6 +82,11 @@ const HeaderStyled = styled.header`
                 margin-bottom: 2.5rem;
             }
 
+            button {
+                background-color: transparent;
+                border: none;
+            }
+
             svg {
                 display: block;
             }
@@ -105,6 +110,7 @@ const HeaderStyled = styled.header`
             margin-bottom: 2.5rem;
         }
 
+
         @media (max-width: 376px) {
             .nav-list.active {
                 position: absolute;
@@ -119,6 +125,11 @@ const HeaderStyled = styled.header`
                 padding: 2rem;
                 transform: translateX(0%);
                 transition: .2s;
+            }
+
+            button {
+                background-color: transparent;
+                border: none;
             }
         }
 `
@@ -141,9 +152,9 @@ export function Header() {
             </Link>
             <button onClick={handleClick}><GiHamburgerMenu/></button>
             <nav className={!menuOpen ? "nav-list" : "nav-list active"}>    
-                    <Link href="/" >HOME</Link>
-                    <Link href="/search" >PESQUISAR ALIMENTOS</Link>
-                    <Link href="/about" >SOBRE</Link>
+                    <Link onClick={() => setMenuOpen(false)} href="/" >HOME</Link>
+                    <Link onClick={() => setMenuOpen(false)}  href="/search" >PESQUISAR ALIMENTOS</Link>
+                    <Link onClick={() => setMenuOpen(false)}  href="/about" >SOBRE</Link>
             </nav>
         </HeaderStyled>
     )

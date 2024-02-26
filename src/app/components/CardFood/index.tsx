@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { PiBowlFoodFill } from "react-icons/pi";
 import { Suspense } from "react";
 import Loading from "@/app/(pages)/search/loading";
+import { createApi } from "unsplash-js";
 
 type ICardFood = {
     description: string;
@@ -22,8 +23,8 @@ const CardFoodStyled = styled.section`
     text-align: start;
 
     svg {
-        height: 6rem;
-        width: 6rem;
+        min-height: 6rem;
+        min-width: 6rem;
         color: #ef233c;
         margin-right: 1rem;
     }
@@ -62,6 +63,7 @@ const CardFoodStyled = styled.section`
         }
     }
 `
+
 
 export function CardFood({ description, category, energy_kcal } : ICardFood) {
     return (

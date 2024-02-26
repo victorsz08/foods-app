@@ -28,8 +28,17 @@ const AboutStyled = styled.section`
         font-style: italic;
     }
 
+    @media (max-width: 428px) {
+        padding: 8vh 8vw;
+        h1, strong {
+            font-size: 1.7rem;
+            margin-bottom: 4rem;
+            font-weight: 800;
+        }
+    }
+
     @media (max-width: 376px) {
-        padding: 0 8vw;
+        padding: 8vh 8vw;
         h1, strong {
             font-size: 1.7rem;
             margin-bottom: 4rem;
